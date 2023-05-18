@@ -1,22 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import "./register.css";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // handleSubmit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!name) {
+      alert("name is required");
+    } else if (!email) {
+      alert("email is required");
+    } else if (!password) {
+      alert("password is required");
+    }
+
+    try {
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <>
       <Container className="mt-5 pt-5">
         <Row>
           <Col md={6} className="mx-auto mt-5">
             <h2 className="text-center mb-5 fw-bold">User Register</h2>
-            <Form className="mt-5 pt-5">
+            <Form className="mt-5 pt-5" onSubmit={handleSubmit}>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label className="fw-bold">Name </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="your name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Form.Group>
+
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Label className="fw-bold">Email </Form.Label>
-                <Form.Control type="email" placeholder="name@example.com" />
+                <Form.Control
+                  type="email"
+                  placeholder="name@example.com"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </Form.Group>
 
               <Form.Group
@@ -27,6 +69,9 @@ const Register = () => {
                 <Form.Control
                   type="password"
                   placeholder="type your password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Form.Group>
               <button className="btn btn-primary w-100">Register</button>
