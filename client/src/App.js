@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import IndexPage from "./pages/IndexPage";
 import Layout from "./pages/Laout";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<IndexPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
       </Routes>
     </>

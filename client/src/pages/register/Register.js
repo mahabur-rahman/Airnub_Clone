@@ -1,16 +1,16 @@
 import React from "react";
-import "./login.css";
+import "./register.css";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   return (
     <>
       <Container className="mt-5 pt-5">
         <Row>
           <Col md={6} className="mx-auto mt-5">
-            <h2 className="text-center mb-5 fw-bold">User Login</h2>
-            <Form>
+            <h2 className="text-center mb-5 fw-bold">User Register</h2>
+            <Form className="mt-5 pt-5">
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
@@ -29,11 +29,11 @@ const Login = () => {
                   placeholder="type your password"
                 />
               </Form.Group>
-              <button className="btn btn-primary w-100">Login</button>
+              <button className="btn btn-primary w-100">Register</button>
               <div className="text-center mt-2">
-                Don't have an account yet?
-                <Link to={"/register"} className="fw-bold mx-2">
-                  Register Now
+                Already a member?
+                <Link to={"/login"} className="fw-bold mx-2">
+                  Login
                 </Link>
               </div>
             </Form>
@@ -44,4 +44,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

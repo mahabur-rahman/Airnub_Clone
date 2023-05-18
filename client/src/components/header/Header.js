@@ -28,8 +28,13 @@ const Header = () => {
 
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              <FaUserCircle />
-              <Link to={"/login"}> mark</Link>
+              <FaUserCircle className="searchIcon" />
+              <Link
+                to={"/login"}
+                className="text-primary text-capitalize text-decoration-none"
+              >
+                <span className="mx-2 fw-bold"> mark</span>
+              </Link>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
