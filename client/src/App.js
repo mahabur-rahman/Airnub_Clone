@@ -1,3 +1,4 @@
+import "./index.css";
 // bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 // react router dom
