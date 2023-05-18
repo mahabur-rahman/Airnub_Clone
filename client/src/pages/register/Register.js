@@ -15,7 +15,7 @@ const Register = () => {
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label className="fw-bold">Emai </Form.Label>
+                <Form.Label className="fw-bold">Email </Form.Label>
                 <Form.Control type="email" placeholder="name@example.com" />
               </Form.Group>
 
