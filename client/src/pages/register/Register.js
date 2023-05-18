@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./register.css";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -21,8 +22,19 @@ const Register = () => {
     }
 
     try {
+      const res = await axios.post(`http://localhost:5000/api/users/register`, {
+        name,
+        email,
+        password,
+      });
+      // console.log(res);
+      alert(`${res.data.message}`);
+      setName("");
+      setEmail("");
+      setPassword("");
     } catch (err) {
       console.log(err.message);
+      alert(`Registration failed!`);
     }
   };
 
