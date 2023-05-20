@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const UserModel = require("../models/User");
 
 // for password hashing
@@ -27,6 +28,39 @@ const registerUser = async (req, res) => {
   }
 };
 
+// login user
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  const userDoc = await UserModel.findOne({ email: email });
+  // console.log(userDoc);
+
+  if (userDoc) {
+    const passOk = bcrypt.compareSync(password, userDoc.password);
+    if (passOk) {
+      jwt.sign(
+        { email: userDoc.email, id: userDoc._id },
+        process.env.JWTSECRET,
+        {},
+        (err, token) => {
+          if (err) throw err;
+          res.cookie("token", token).json(userDoc);
+        }
+      );
+    } else {
+      return res.status(422).json("pass not ok");
+    }
+  } else {
+    return res.status(500).json("User not found!");
+  }
+};
+
+// get user profile using cookie
+const userProfile = async (req, res) => {
+  res.send("get user profile");
+};
+
 module.exports = {
   registerUser,
+  loginUser,
+  userProfile,
 };
