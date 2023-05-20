@@ -56,7 +56,20 @@ const loginUser = async (req, res) => {
 
 // get user profile using cookie
 const userProfile = async (req, res) => {
-  res.send("get user profile");
+  // console.log(req.cookies);
+  const { token } = req.cookies;
+
+  if (token) {
+    jwt.verify(token, process.env.JWTSECRET, {}, async (err, userData) => {
+      if (err) throw err;
+      // console.log(userData);
+      const { name, email, _id } = await UserModel.findById(userData.id);
+      // console.log(user);
+      return res.status(200).json({ name, email, _id });
+    });
+  } else {
+    return res.status(500).json(null);
+  }
 };
 
 module.exports = {
