@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./header.css";
 import { Container, Navbar } from "react-bootstrap";
 import { FaUserCircle, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 const Header = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <>
       <Navbar>
@@ -28,12 +31,12 @@ const Header = () => {
 
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              <FaUserCircle className="searchIcon" />
               <Link
-                to={"/login"}
+                to={user ? "/account" : "/login"}
                 className="text-primary text-capitalize text-decoration-none"
               >
-                <span className="mx-2 fw-bold"> mark</span>
+                <FaUserCircle className="searchIcon" />
+                <span className="mx-2 fw-bold">{!!user && user.name}</span>
               </Link>
             </Navbar.Text>
           </Navbar.Collapse>

@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import "./login.css";
 import { Container, Form, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   // user context
   const { user, setUser } = useContext(UserContext);
@@ -30,12 +31,16 @@ const Login = () => {
       alert(`Login successful`);
       setEmail("");
       setPassword("");
+      setRedirect(true);
     } catch (err) {
       alert(`Login failed`);
     }
   };
 
-  console.log(`Login page user info: `, user);
+  // console.log(`Login page user info: `, user);
+  if (redirect) {
+    return <Navigate to={`/`} />;
+  }
 
   return (
     <>
