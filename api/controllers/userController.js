@@ -72,8 +72,14 @@ const userProfile = async (req, res) => {
   }
 };
 
+// logout user
+const logoutUser = async (req, res) => {
+  res.cookie("token", "").json(true);
+};
+
 module.exports = {
   registerUser,
   loginUser,
   userProfile,
+  logoutUser,
 };

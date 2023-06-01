@@ -5,6 +5,7 @@ export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [ready, setReady] = useState(false);
 
   //   user profile info get after login
   useEffect(() => {
@@ -14,6 +15,7 @@ export const UserContextProvider = ({ children }) => {
         .then((res) => {
           //  console.log(res);
           setUser(res.data);
+          setReady(true);
         })
         .catch((err) => {
           console.log(err);
@@ -26,6 +28,7 @@ export const UserContextProvider = ({ children }) => {
       value={{
         user,
         setUser,
+        ready,
       }}
     >
       {children}

@@ -9,6 +9,7 @@ import Layout from "./pages/Laout";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import { UserContextProvider } from "./context/UserContext";
+import Account from "./pages/account/Account";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route index element={<IndexPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/account/:subpage?" element={<Account />} />
         </Route>
       </Routes>
     </UserContextProvider>
