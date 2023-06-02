@@ -128,14 +128,24 @@ const Place = () => {
                         />
                       </div>
                     ))}
+
                   <br />
 
-                  <button
-                    className="btn"
+                  <label
+                    className="btn position-relative"
                     style={{ border: "1px solid #ddd", padding: ".8rem" }}
                   >
+                    <input
+                      type="file"
+                      style={{
+                        visibility: `hidden`,
+                        position: `absolute`,
+                        width: 0,
+                        height: 0,
+                      }}
+                    />
                     <FaCloudUploadAlt /> Upload Photo
-                  </button>
+                  </label>
 
                   {preInput(`Description`, ` description of this place`)}
 

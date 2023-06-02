@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 // for image show in uploads folder api
-app.use("/uploads", express.static(__dirname + "/uploads")); // for showing browser ex: http://localhost:5000/uploads/photo1685741007061.jpg
+app.use("/uploads", express.static(__dirname + "/uploads")); // for showing Browser ex: http://localhost:5000/uploads/photo1685741007061.jpg
 
 app.use("/api/users", userRoute);
 
