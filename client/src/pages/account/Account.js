@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Navigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
+import Place from "../../components/places/Place";
 
 const Account = () => {
   const [redirect, setRedirect] = useState(null);
@@ -25,6 +26,8 @@ const Account = () => {
     let classes = `px-3`;
     if (type === subpage) {
       classes += " p-2 bg-primary text-light";
+    } else {
+      classes += " p-2 bg-light text-black";
     }
 
     return classes;
@@ -68,6 +71,8 @@ const Account = () => {
           </button>
         </div>
       )}
+
+      {subpage === "places" && <Place />}
     </div>
   );
 };
