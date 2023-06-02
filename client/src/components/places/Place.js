@@ -2,19 +2,22 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Link, useParams } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import Perks from "../perks/Perks";
 
 const Place = () => {
   const { action } = useParams();
+
+  // state for inputs
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
-  const [addPhoto, setAddPhoto] = useState("");
+  const [addedPhotos, setAddedPhotos] = useState([]);
   const [photoByLink, setPhotoByLink] = useState("");
   const [description, setDescription] = useState("");
   const [perks, setPerks] = useState("");
   const [extraInfo, setExtraInfo] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [maxGuests, setMaxGuest] = useState("");
+  const [maxGuests, setMaxGuests] = useState(1);
 
   function inputHeader(text) {
     return <h4 className="mt-4">{text}</h4>;
@@ -33,20 +36,27 @@ const Place = () => {
     );
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  console.log(`perks: `, perks);
+
   return (
     <>
       <div className="mt-5">
-        {action !== "new" && (
-          <Link to={`/account/places/new`}>
-            <Button variant="primary">+ Add New Place</Button>
-          </Link>
-        )}
+        <div className="text-center">
+          {action !== "new" && (
+            <Link to={`/account/places/new`}>
+              <Button variant="secondary">+ Add New Place</Button>
+            </Link>
+          )}
+        </div>
 
         <div className="container">
           <div className="col-6 mx-auto">
             {action === "new" && (
               <div className="py-5">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div>
                     {preInput(
                       `Title`,
@@ -57,6 +67,8 @@ const Place = () => {
                       className="form-control"
                       type="text"
                       placeholder="title, for example: My lovely apartment"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
                     />
                   </div>
 
@@ -65,6 +77,8 @@ const Place = () => {
                     className="form-control"
                     type="text"
                     placeholder="address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                   />
 
                   {preInput(`Photos`, ` more = better`)}
@@ -73,6 +87,8 @@ const Place = () => {
                       className="form-control"
                       type="text"
                       placeholder=" Add using a link ...jpg"
+                      value={photoByLink}
+                      onChange={(e) => setPhotoByLink(e.target.value)}
                     />
 
                     <button className="btn btn-secondary btn-sm w-25">
@@ -95,25 +111,22 @@ const Place = () => {
                     className="form-control"
                     type="text"
                     placeholder="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
 
                   {preInput(`Perks`, `select all the perks of your place`)}
 
-                  <input type="checkbox" className="mx-2" />
-                  <span>Wifi</span>
-                  <input type="checkbox" className="mx-2" />
-                  <span>Free parking spot</span>
-                  <input type="checkbox" className="mx-2" />
-                  <span>TV</span>
-                  <input type="checkbox" className="mx-2" />
-                  <span>Radio</span>
-                  <input type="checkbox" className="mx-2" />
-                  <span>Pets</span>
-                  <input type="checkbox" className="mx-2" />
-                  <span>Private entrance</span>
+                  {/* perks component */}
+                  <Perks value={perks} setPerks={setPerks} />
 
                   {preInput(`Extra Info`, `house rules, etc`)}
-                  <textarea className="form-control" type="text" />
+                  <textarea
+                    className="form-control"
+                    type="text"
+                    value={extraInfo}
+                    onChange={(e) => setExtraInfo(e.target.value)}
+                  />
 
                   {preInput(
                     `Checkin & Out times`,
@@ -124,6 +137,8 @@ const Place = () => {
                     className="form-control"
                     type="number"
                     placeholder="14:00"
+                    value={checkIn}
+                    onChange={(e) => setCheckIn(e.target.value)}
                   />
 
                   <h4 className="my-3">Check out time</h4>
@@ -131,13 +146,16 @@ const Place = () => {
                     className="form-control"
                     type="number"
                     placeholder="16:00"
+                    value={checkOut}
+                    onChange={(e) => setCheckOut(e.target.value)}
                   />
 
                   <h4>Max guest</h4>
                   <input
                     className="form-control"
                     type="number"
-                    placeholder="number of guests, ex: 1"
+                    value={maxGuests}
+                    onChange={(e) => setMaxGuests(e.target.value)}
                   />
 
                   <div className="d-grid gap-2 mt-3">
