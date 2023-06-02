@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import { Link, useParams } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Perks from "../perks/Perks";
+import axios from "axios";
 
 const Place = () => {
   const { action } = useParams();
@@ -36,10 +37,27 @@ const Place = () => {
     );
   }
 
+  // add photo by link
+  const addPhotoWithLink = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data: filename } = await axios.post(`/upload-by-link`, {
+        link: photoByLink,
+      });
+      setAddedPhotos((prev) => {
+        return [...prev, filename];
+      });
+
+      setPhotoByLink("");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  console.log(`perks: `, perks);
 
   return (
     <>
@@ -91,11 +109,25 @@ const Place = () => {
                       onChange={(e) => setPhotoByLink(e.target.value)}
                     />
 
-                    <button className="btn btn-secondary btn-sm w-25">
+                    <button
+                      className="btn btn-secondary btn-sm w-25"
+                      onClick={addPhotoWithLink}
+                    >
                       Add photo
                     </button>
                   </div>
 
+                  {/* insert photo by link */}
+                  {addedPhotos.length > 0 &&
+                    addedPhotos.map((link) => (
+                      <div key={link} className="mt-3">
+                        <img
+                          className="img-fluid w-25  mx-1"
+                          src={`http://localhost:5000/uploads/` + link}
+                          alt=""
+                        />
+                      </div>
+                    ))}
                   <br />
 
                   <button
