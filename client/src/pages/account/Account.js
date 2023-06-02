@@ -50,30 +50,31 @@ const Account = () => {
   }
 
   return (
-    <div className="mx-auto w-75 text-center mt-4">
-      <Link to={`/account`} className={linkClasses("profile")}>
-        My Profile
-      </Link>
-      <Link to={`/account/bookings`} className={linkClasses("bookings")}>
-        My Bookings
-      </Link>
-      <Link to={`/account/places`} className={linkClasses(`places`)}>
-        My Accommodation
-      </Link>
+    <>
+      <div className="mx-auto w-75 text-center mt-4">
+        <Link to={`/account`} className={linkClasses("profile")}>
+          My Profile
+        </Link>
+        <Link to={`/account/bookings`} className={linkClasses("bookings")}>
+          My Bookings
+        </Link>
+        <Link to={`/account/places`} className={linkClasses(`places`)}>
+          My Accommodation
+        </Link>
 
-      {subpage === "profile" && (
-        <div>
-          <p className="py-3">
-            Logged in as Name: {user.name} Email: ({user.email})
-          </p>
-          <button className="btn btn-danger" onClick={logoutUser}>
-            Logout
-          </button>
-        </div>
-      )}
-
+        {subpage === "profile" && (
+          <div>
+            <p className="py-3">
+              Logged in as Name: {user.name} Email: ({user.email})
+            </p>
+            <button className="btn btn-danger" onClick={logoutUser}>
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
       {subpage === "places" && <Place />}
-    </div>
+    </>
   );
 };
 
