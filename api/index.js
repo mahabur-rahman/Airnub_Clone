@@ -28,6 +28,7 @@ app.use("/api/users", userRoute);
 // add photo by link
 app.post("/api/users/upload-by-link", async (req, res) => {
   const { link } = req.body;
+
   const newName = "photo" + Date.now() + ".jpg";
 
   await imageDownloader.image({

@@ -55,6 +55,27 @@ const Place = () => {
     }
   };
 
+  // upload photo from computer
+  const uploadPhoto = (e) => {
+    // console.log(e.target.files[0].name);
+    const files = e.target.files;
+    const data = new FormData();
+    data.set("photos", files);
+
+    axios
+      .post("/upload", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        const { data: filename } = response;
+        setAddedPhotos((prev) => {
+          return [...prev, filename];
+        });
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -122,6 +143,7 @@ const Place = () => {
                     addedPhotos.map((link) => (
                       <div key={link} className="mt-3">
                         <img
+                          style={{ height: "100px" }}
                           className="img-fluid w-25  mx-1"
                           src={`http://localhost:5000/uploads/` + link}
                           alt=""
@@ -143,6 +165,7 @@ const Place = () => {
                         width: 0,
                         height: 0,
                       }}
+                      onChange={uploadPhoto}
                     />
                     <FaCloudUploadAlt /> Upload Photo
                   </label>
