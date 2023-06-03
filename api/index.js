@@ -5,6 +5,8 @@ const colors = require("colors");
 const cookieParser = require("cookie-parser");
 // add photo by link
 const imageDownloader = require("image-downloader");
+const fs = require("fs");
+const multer = require("multer");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -38,6 +40,34 @@ app.post("/api/users/upload-by-link", async (req, res) => {
 
   return res.json(newName);
 });
+
+// upload from computer
+const photosMiddleware = multer({ dest: "uploads" });
+
+app.post(
+  "/api/users/upload",
+  photosMiddleware.array("photos", 100),
+  async (req, res) => {
+    const uploadedFiles = [];
+
+    for (let i = 0; i < req.files.length; i++) {
+      const { path, originalname } = req.files[i];
+
+      const parts = originalname.split(".");
+      const ext = parts[parts.length - 1];
+      const newPath = path + "." + ext;
+
+      fs.renameSync(path, newPath);
+
+      const filename = newPath.replace(`uploads/`, "");
+      uploadedFiles.push(filename);
+    }
+
+    console.log(uploadedFiles);
+
+    return res.json(uploadedFiles);
+  }
+);
 
 // listen app
 app.listen(PORT, () => {
