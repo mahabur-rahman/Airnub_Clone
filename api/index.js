@@ -42,7 +42,7 @@ app.post("/api/users/upload-by-link", async (req, res) => {
 });
 
 // upload from computer
-const photosMiddleware = multer({ dest: "uploads" });
+const photosMiddleware = multer({ dest: "uploads/" });
 
 app.post(
   "/api/users/upload",
@@ -63,9 +63,8 @@ app.post(
       uploadedFiles.push(filename);
     }
 
-    console.log(uploadedFiles);
-
-    return res.json(uploadedFiles);
+    const uniqueFilenames = [...new Set(uploadedFiles)];
+    return res.json(uniqueFilenames);
   }
 );
 

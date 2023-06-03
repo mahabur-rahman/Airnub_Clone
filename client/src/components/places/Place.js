@@ -147,7 +147,7 @@ const Place = () => {
                         <img
                           style={{ height: "100px" }}
                           className="img-fluid w-25 mx-1"
-                          src={`http://localhost:5000/uploads/` + link}
+                          src={`http://localhost:5000/` + link}
                           alt=""
                         />
                       </div>
