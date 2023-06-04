@@ -4,7 +4,7 @@ import { Navigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Place from "../../components/places/Place";
 
-const Account = () => {
+const PlacesPage = () => {
   const [redirect, setRedirect] = useState(null);
   const { user, ready, setUser } = useContext(UserContext);
 
@@ -78,4 +78,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default PlacesPage;
