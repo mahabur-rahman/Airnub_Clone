@@ -3,7 +3,7 @@ export default function Perks({ value, setPerks }) {
     const { name, checked } = ev.target;
 
     if (checked) {
-      setPerks([...value, name]);
+      setPerks([...value]);
     } else {
       setPerks([...value.filter((item) => item !== name)]);
     }
