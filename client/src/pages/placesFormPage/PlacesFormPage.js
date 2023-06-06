@@ -8,8 +8,6 @@ import Perks from "../../components/perks/Perks";
 import AccountNav from "../../components/navbar/AccountNav";
 
 const Place = () => {
-  const { action } = useParams();
-
   // state for inputs
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
@@ -38,8 +36,22 @@ const Place = () => {
     );
   }
 
-  const handleSubmit = (e) => {
+  // form submission with data
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const placeData = {
+      title,
+      address,
+      addedPhotos,
+      description,
+      perks,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+    };
+    // api request || add data to db
+    await axios.post(`/places`, placeData);
   };
 
   return (
