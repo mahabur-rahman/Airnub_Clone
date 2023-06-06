@@ -14,7 +14,7 @@ export default function AccountNav() {
     if (type === subpage) {
       classes += " p-2 bg-primary text-light";
     } else {
-      classes += " p-2 bg-light text-black";
+      classes += " p-2 bg-light text-black mx-2";
     }
 
     return classes;
