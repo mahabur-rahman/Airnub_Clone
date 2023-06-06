@@ -12,6 +12,7 @@ import { UserContextProvider } from "./context/UserContext";
 import ProfilePage from "./pages/profilePage/ProfilePage";
 import PlacesPage from "./pages/account/PlacesPage";
 import PlacesFormPage from "./pages/placesFormPage/PlacesFormPage";
+import BookingsPage from "./pages/bookings/BookingsPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/account" element={<ProfilePage />} />
+          <Route path="/account/bookings" element={<BookingsPage />} />
           <Route path="/account/places" element={<PlacesPage />} />
           <Route path="/account/places/new" element={<PlacesFormPage />} />
         </Route>
