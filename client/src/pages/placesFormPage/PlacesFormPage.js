@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import axios from "axios";
 import UploadPhotos from "../../components/uploadPhotos/UploadPhotos";
@@ -18,6 +18,8 @@ const Place = () => {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
+  // redirect
+  const [redirect, setRedirect] = useState(false);
 
   function inputHeader(text) {
     return <h4 className="mt-4">{text}</h4>;
@@ -39,20 +41,29 @@ const Place = () => {
   // form submission with data
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const placeData = {
-      title,
-      address,
-      addedPhotos,
-      description,
-      perks,
-      extraInfo,
-      checkIn,
-      checkOut,
-      maxGuests,
-    };
-    // api request || add data to db
-    await axios.post(`/places`, placeData);
+    try {
+      const placeData = {
+        title,
+        address,
+        addedPhotos,
+        description,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+      };
+      // api request || add data to db
+      await axios.post(`/places`, placeData);
+      setRedirect(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  if (redirect) {
+    return <Navigate to={`/account/places`} />;
+  }
 
   return (
     <>
@@ -146,7 +157,7 @@ const Place = () => {
                 />
 
                 <div className="d-grid gap-2 mt-3">
-                  <Button variant="primary" size="lg">
+                  <Button variant="primary" size="lg" type="submit">
                     Save
                   </Button>
                 </div>

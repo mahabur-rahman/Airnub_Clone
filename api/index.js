@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 8080;
 
 // all route
 const userRoute = require("./routes/userRoute");
+const placeRoute = require("./routes/placeRoute");
 
 // connect to db
 const connectedDB = require("./db/connect");
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads")); // for showing Browser ex: http://localhost:5000/uploads/photo1685741007061.jpg
 
 app.use("/api/users", userRoute);
+app.use("/api/users", placeRoute);
 
 // add photo by link
 app.post("/api/users/upload-by-link", async (req, res) => {
