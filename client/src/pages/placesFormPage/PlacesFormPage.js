@@ -41,24 +41,24 @@ const Place = () => {
   // form submission with data
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   const placeData = {
-    //     title,
-    //     address,
-    //     addedPhotos,
-    //     description,
-    //     perks,
-    //     extraInfo,
-    //     checkIn,
-    //     checkOut,
-    //     maxGuests,
-    //   };
-    //   // api request || add data to db
-    //   await axios.post(`/places`, placeData);
-    //   setRedirect(true);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      const placeData = {
+        title,
+        address,
+        addedPhotos,
+        description,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+      };
+      // api request || add data to db
+      await axios.post(`/places`, placeData);
+      setRedirect(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (redirect) {
