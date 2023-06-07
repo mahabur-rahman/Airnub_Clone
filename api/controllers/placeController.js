@@ -36,6 +36,17 @@ const createPlace = (req, res) => {
   });
 };
 
+// get places data
+const getPlacesData = (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, process.env.JWTSECRET, {}, async (err, userData) => {
+    const { id } = userData;
+
+    return res.status(200).json(await PlaceModel.find({ owner: id }));
+  });
+};
+
 module.exports = {
   createPlace,
+  getPlacesData,
 };

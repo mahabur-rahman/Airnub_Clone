@@ -13,7 +13,7 @@ const Place = () => {
   const [address, setAddress] = useState("");
   const [addedPhotos, setAddedPhotos] = useState([]);
   const [description, setDescription] = useState("");
-  const [perks, setPerks] = useState("");
+  const [perks, setPerks] = useState([]);
   const [extraInfo, setExtraInfo] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -41,24 +41,24 @@ const Place = () => {
   // form submission with data
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const placeData = {
-        title,
-        address,
-        addedPhotos,
-        description,
-        perks,
-        extraInfo,
-        checkIn,
-        checkOut,
-        maxGuests,
-      };
-      // api request || add data to db
-      await axios.post(`/places`, placeData);
-      setRedirect(true);
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const placeData = {
+    //     title,
+    //     address,
+    //     addedPhotos,
+    //     description,
+    //     perks,
+    //     extraInfo,
+    //     checkIn,
+    //     checkOut,
+    //     maxGuests,
+    //   };
+    //   // api request || add data to db
+    //   await axios.post(`/places`, placeData);
+    //   setRedirect(true);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   if (redirect) {
@@ -119,7 +119,7 @@ const Place = () => {
                 {preInput(`Perks`, `select all the perks of your place`)}
 
                 {/* perks component */}
-                <Perks value={perks} setPerks={setPerks} />
+                <Perks selected={perks} onChange={setPerks} />
 
                 {preInput(`Extra Info`, `house rules, etc`)}
                 <textarea

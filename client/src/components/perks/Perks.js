@@ -1,13 +1,12 @@
-export default function Perks({ value, setPerks }) {
-  const handleChecked = (ev) => {
-    const { name, checked } = ev.target;
-
+export default function Perks({ selected, onChange }) {
+  function handleChecked(ev) {
+    const { checked, name } = ev.target;
     if (checked) {
-      setPerks([...value]);
+      onChange([...selected, name]);
     } else {
-      setPerks([...value.filter((item) => item !== name)]);
+      onChange([...selected.filter((selectedName) => selectedName !== name)]);
     }
-  };
+  }
 
   return (
     <>
