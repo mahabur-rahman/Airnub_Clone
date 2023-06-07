@@ -3,7 +3,7 @@ import { UserContext } from "../../context/UserContext";
 import { Navigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import AccountNav from "../../components/navbar/AccountNav";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 const PlacesPage = () => {
   const [places, setPlaces] = useState([]);
@@ -18,7 +18,6 @@ const PlacesPage = () => {
     getPlacesData();
   }, []);
 
-  console.log(places);
   return (
     <>
       <AccountNav />
@@ -34,12 +33,27 @@ const PlacesPage = () => {
         {places.length > 0 &&
           places.map((place) => {
             return (
-              <div key={place._id}>
-                <div className="bg-light">
-                  <img src={place.photos[0]} alt="img" />
-                </div>
-                <h4>{place.title}</h4>
-              </div>
+              <Card className="my-3">
+                {place.photos.length > 0 && (
+                  <Card.Img
+                    style={{
+                      height: "200px",
+                      width: "50%",
+                      margin: "0 auto",
+                      objectFt: "cover",
+                    }}
+                    variant="top"
+                    src={`http://localhost:5000/` + place.photos[0]}
+                  />
+                )}
+                <Card.Body>
+                  <Card.Title>{place.title}</Card.Title>
+                  <Card.Text>{place.description}</Card.Text>
+                  <Link variant="warning" to={`/account/places/${place._id}`}>
+                    Details
+                  </Link>
+                </Card.Body>
+              </Card>
             );
           })}
       </div>

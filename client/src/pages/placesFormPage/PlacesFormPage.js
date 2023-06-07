@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
@@ -8,6 +8,9 @@ import Perks from "../../components/perks/Perks";
 import AccountNav from "../../components/navbar/AccountNav";
 
 const Place = () => {
+  // taking id from URL
+  const { id } = useParams();
+
   // state for inputs
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
@@ -20,6 +23,26 @@ const Place = () => {
   const [maxGuests, setMaxGuests] = useState(1);
   // redirect
   const [redirect, setRedirect] = useState(false);
+
+  // data get from URL id
+  useEffect(() => {
+    if (!id) {
+      // if id === undefined
+      return;
+    }
+    axios.get(`/places/${id}`).then((res) => {
+      const { data } = res;
+      setTitle(data.title);
+      setAddress(data.address);
+      setAddedPhotos(data.photos);
+      setDescription(data.description);
+      setPerks(data.perks);
+      setExtraInfo(data.extraInfo);
+      setCheckIn(data.checkIn);
+      setCheckIn(data.checkOut);
+      setMaxGuests(data.maxGuests);
+    });
+  }, [id]);
 
   function inputHeader(text) {
     return <h4 className="mt-4">{text}</h4>;
@@ -41,23 +64,40 @@ const Place = () => {
   // form submission with data
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const placeData = {
-        title,
-        address,
-        addedPhotos,
-        description,
-        perks,
-        extraInfo,
-        checkIn,
-        checkOut,
-        maxGuests,
-      };
-      // api request || add data to db
-      await axios.post(`/places`, placeData);
-      setRedirect(true);
-    } catch (err) {
-      console.log(err);
+
+    const placeData = {
+      title,
+      address,
+      addedPhotos,
+      description,
+      perks,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+    };
+    // if we have ID then will update API call 
+    if(id) {
+      // update place
+      try{
+        await axios.put(`/places`, {
+          id, ...placeData
+        })
+        setRedirect(true)
+
+      }catch(err){
+        console.log(err)
+      }
+
+    }else {
+
+      try {
+        // api request || add data to db
+        await axios.post(`/places`, placeData);
+        setRedirect(true);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

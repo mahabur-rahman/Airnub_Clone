@@ -46,7 +46,57 @@ const getPlacesData = (req, res) => {
   });
 };
 
+// get places from /:id
+const getSinglePlace = async (req, res) => {
+  const { id } = req.params;
+
+  return res.status(200).json(await PlaceModel.findById(id));
+};
+
+// update place
+const updatePlaces = (req, res) => {
+  const { token } = req.cookies;
+
+  const {
+    id,
+    title,
+    address,
+    addedPhotos,
+    description,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+  } = req.body;
+
+  jwt.verify(token, process.env.JWTSECRET, {}, async (err, userData) => {
+    if (err) throw err;
+
+    const placeDoc = await PlaceModel.findById(id);
+    if (userData.id === placeDoc.owner.toString()) {
+      placeDoc.set({
+        title,
+        address,
+        photos: addedPhotos,
+        description,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+      });
+
+      // save data
+      await placeDoc.save();
+      return res.status(200).json(`Update Place Data`);
+    }
+  });
+};
+
 module.exports = {
   createPlace,
   getPlacesData,
+  getSinglePlace,
+  updatePlaces,
 };
