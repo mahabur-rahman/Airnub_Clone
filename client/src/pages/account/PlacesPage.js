@@ -6,15 +6,19 @@ import AccountNav from "../../components/navbar/AccountNav";
 import { Button } from "react-bootstrap";
 
 const PlacesPage = () => {
+  const [places, setPlaces] = useState([]);
+
   const getPlacesData = async () => {
     const res = await axios.get(`/user-places`);
-    console.log(res);
+    setPlaces(res.data);
   };
+
   // get places api call
   useEffect(() => {
     getPlacesData();
   }, []);
 
+  console.log(places);
   return (
     <>
       <AccountNav />
@@ -24,6 +28,20 @@ const PlacesPage = () => {
             + Add New Place
           </Button>
         </Link>
+      </div>
+      {/* content her  */}
+      <div>
+        {places.length > 0 &&
+          places.map((place) => {
+            return (
+              <div key={place._id}>
+                <div className="bg-light">
+                  <img src={place.photos[0]} alt="img" />
+                </div>
+                <h4>{place.title}</h4>
+              </div>
+            );
+          })}
       </div>
     </>
   );
