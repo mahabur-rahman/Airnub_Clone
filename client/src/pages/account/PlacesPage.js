@@ -37,10 +37,10 @@ const PlacesPage = () => {
                 {place.photos.length > 0 && (
                   <Card.Img
                     style={{
-                      height: "200px",
+                      height: "300px",
                       width: "50%",
                       margin: "0 auto",
-                      objectFt: "cover",
+                      objectFt: "contain",
                     }}
                     variant="top"
                     src={`http://localhost:5000/` + place.photos[0]}
