@@ -30,3 +30,9 @@ ul {
    font-size: 1.3rem;
    color: gray;
 }
+
+
+button{
+   border: 0;
+   background: transparent;
+}

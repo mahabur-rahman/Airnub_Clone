@@ -1,6 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { FaCloudUploadAlt } from "react-icons/fa";
+import {
+  FaCloudUploadAlt,
+  FaTrash,
+  FaStar,
+  FaStarHalfAlt,
+} from "react-icons/fa";
 
 const UploadPhotos = ({ addedPhotos, setAddedPhotos }) => {
   const [photoByLink, setPhotoByLink] = useState("");
@@ -46,6 +51,18 @@ const UploadPhotos = ({ addedPhotos, setAddedPhotos }) => {
       });
   };
 
+  // remove photo
+  const removePhoto = (e, filename) => {
+    e.preventDefault();
+    setAddedPhotos([...addedPhotos.filter((photo) => photo !== filename)]);
+  };
+
+  // select as main photo
+  const selectAsMainPhoto = (e, link) => {
+    e.preventDefault();
+    setAddedPhotos([link, ...addedPhotos.filter((photo) => photo !== link)]);
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -73,8 +90,31 @@ const UploadPhotos = ({ addedPhotos, setAddedPhotos }) => {
               style={{ height: "100px" }}
               className="img-fluid w-25 mx-1"
               src={`http://localhost:5000/` + link}
-              alt=""
+              alt="img"
             />
+            <button
+              className="text-danger"
+              onClick={(e) => removePhoto(e, link)}
+            >
+              <FaTrash />
+            </button>
+
+            {/* selecting star mark */}
+            <button
+              className="mx-2"
+              onClick={(ev) => selectAsMainPhoto(ev, link)}
+            >
+              {link === addedPhotos[0] && (
+                <span>
+                  <FaStar />
+                </span>
+              )}
+              {link !== addedPhotos[0] && (
+                <span>
+                  <FaStarHalfAlt />
+                </span>
+              )}
+            </button>
           </div>
         ))}
 
