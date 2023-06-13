@@ -25,7 +25,7 @@ const IndexPage = () => {
           {places.length > 0 &&
             places.map((place) => (
               <Col key={place._id} xl={4} lg={6} className="mt-4">
-                <Card style={{ height: "550px" }}>
+                <Card style={{ height: "580px" }}>
                   {place.photos?.[0] && (
                     <Card.Img
                       height="300px"
@@ -38,6 +38,11 @@ const IndexPage = () => {
                       {place.title}
                     </Card.Title>
                     <Card.Text>{place.description}</Card.Text>
+                    {place?.price && (
+                      <Card.Text className="fw-bold">
+                        Price: ${place.price} per night
+                      </Card.Text>
+                    )}
                   </Card.Body>
                 </Card>
               </Col>

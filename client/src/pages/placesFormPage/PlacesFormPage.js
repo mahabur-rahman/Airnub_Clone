@@ -21,6 +21,7 @@ const Place = () => {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
+  const [price, setPrice] = useState(100);
   // redirect
   const [redirect, setRedirect] = useState(false);
 
@@ -41,6 +42,7 @@ const Place = () => {
       setCheckIn(data.checkIn);
       setCheckIn(data.checkOut);
       setMaxGuests(data.maxGuests);
+      setPrice(data.price);
     });
   }, [id]);
 
@@ -75,22 +77,21 @@ const Place = () => {
       checkIn,
       checkOut,
       maxGuests,
+      price,
     };
-    // if we have ID then will update API call 
-    if(id) {
+    // if we have ID then will update API call
+    if (id) {
       // update place
-      try{
+      try {
         await axios.put(`/places`, {
-          id, ...placeData
-        })
-        setRedirect(true)
-
-      }catch(err){
-        console.log(err)
+          id,
+          ...placeData,
+        });
+        setRedirect(true);
+      } catch (err) {
+        console.log(err);
       }
-
-    }else {
-
+    } else {
       try {
         // api request || add data to db
         await axios.post(`/places`, placeData);
@@ -194,6 +195,14 @@ const Place = () => {
                   type="number"
                   value={maxGuests}
                   onChange={(e) => setMaxGuests(e.target.value)}
+                />
+
+                <h4>Price per night</h4>
+                <input
+                  className="form-control"
+                  type="number"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
                 />
 
                 <div className="d-grid gap-2 mt-3">

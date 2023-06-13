@@ -12,6 +12,7 @@ const createPlace = (req, res) => {
     checkIn,
     checkOut,
     maxGuests,
+    price,
   } = req.body;
 
   const { token } = req.cookies;
@@ -30,6 +31,7 @@ const createPlace = (req, res) => {
       checkIn,
       checkOut,
       maxGuests,
+      price,
     });
 
     return res.status(201).json(placeDoc);
@@ -68,6 +70,7 @@ const updatePlaces = (req, res) => {
     checkIn,
     checkOut,
     maxGuests,
+    price,
   } = req.body;
 
   jwt.verify(token, process.env.JWTSECRET, {}, async (err, userData) => {
@@ -85,6 +88,7 @@ const updatePlaces = (req, res) => {
         checkIn,
         checkOut,
         maxGuests,
+        price,
       });
 
       // save data
