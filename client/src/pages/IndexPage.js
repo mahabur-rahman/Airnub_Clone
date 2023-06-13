@@ -1,7 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Button, Card, Container, Row, Col } from "react-bootstrap";
 
 const IndexPage = () => {
-  return <div>index page here</div>;
+  const [places, setPlaces] = useState([]);
+
+  // get all places
+  const getAllPlaces = async () => {
+    try {
+      const res = await axios.get(`/all-places`);
+      setPlaces(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAllPlaces();
+  }, []);
+  return (
+    <>
+      <Container>
+        <Row>
+          {places.length > 0 &&
+            places.map((place) => (
+              <Col key={place._id} xl={4} lg={6} className="mt-4">
+                <Card style={{ height: "550px" }}>
+                  {place.photos?.[0] && (
+                    <Card.Img
+                      height="300px"
+                      variant="top"
+                      src={"http://localhost:5000/" + place.photos[0]}
+                    />
+                  )}
+                  <Card.Body>
+                    <Card.Title className="text-truncate fw-bold">
+                      {place.title}
+                    </Card.Title>
+                    <Card.Text>{place.description}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+        </Row>
+      </Container>
+    </>
+  );
 };
 
 export default IndexPage;

@@ -96,7 +96,7 @@ const updatePlaces = (req, res) => {
 
 // get all places
 const getAllPlaces = async (req, res) => {
-  return res.status(200).json(PlaceModel.find());
+  return res.status(200).json(await PlaceModel.find());
 };
 
 module.exports = {
