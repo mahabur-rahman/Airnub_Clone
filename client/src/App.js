@@ -13,6 +13,7 @@ import ProfilePage from "./pages/profilePage/ProfilePage";
 import PlacesPage from "./pages/account/PlacesPage";
 import PlacesFormPage from "./pages/placesFormPage/PlacesFormPage";
 import BookingsPage from "./pages/bookings/BookingsPage";
+import SinglePlacePage from "./pages/singlePlacePage/SinglePlacePage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/account/places" element={<PlacesPage />} />
           <Route path="/account/places/:id" element={<PlacesFormPage />} />
           <Route path="/account/places/new" element={<PlacesFormPage />} />
+          <Route path="/place/:id" element={<SinglePlacePage />} />
         </Route>
       </Routes>
     </UserContextProvider>
