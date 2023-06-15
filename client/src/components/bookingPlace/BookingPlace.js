@@ -5,6 +5,8 @@ const BookingPlace = ({ place }) => {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState();
   const [numberOfGuests, setNumberOfGuests] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
 
   let numberOfNights = 0;
 
@@ -47,6 +49,28 @@ const BookingPlace = ({ place }) => {
         />
         <br />
         <br />
+
+        {numberOfNights > 0 && (
+          <>
+            <label>Your full name </label>
+            <input
+              type="text"
+              className="form-control"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <br />
+            <br />
+
+            <label>Phone Number </label>
+            <input
+              type="tel"
+              className="form-control"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </>
+        )}
 
         <h4>Extra Info: </h4>
         <p>{place.extraInfo}</p>
