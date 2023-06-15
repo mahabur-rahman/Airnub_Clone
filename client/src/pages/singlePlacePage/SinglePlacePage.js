@@ -70,6 +70,7 @@ export default function SinglePlacePage() {
                 src={`http://localhost:5000/` + place?.photos?.[0]}
                 alt="photo"
                 className="img-fluid"
+                onClick={() => setShowAllPhotos(true)}
               />
             </div>
           </Col>
@@ -80,6 +81,7 @@ export default function SinglePlacePage() {
                 alt="photo"
                 width="75%"
                 height="490px"
+                onClick={() => setShowAllPhotos(true)}
               />
               <img
                 src={`http://localhost:5000/` + place?.photos?.[2]}
@@ -87,6 +89,7 @@ export default function SinglePlacePage() {
                 width="75%"
                 height="490px"
                 className="mt-2"
+                onClick={() => setShowAllPhotos(true)}
               />
             </div>
           </Col>
