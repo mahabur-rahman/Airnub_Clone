@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { FaBarcode, FaWindowClose } from "react-icons/fa";
+import BookingPlace from "../../components/bookingPlace/BookingPlace";
 
 export default function SinglePlacePage() {
   const [place, setPlace] = useState({});
@@ -89,6 +90,17 @@ export default function SinglePlacePage() {
               />
             </div>
           </Col>
+
+          <div>
+            <h4>Description</h4>
+            <p>{place.description}</p>
+            <p>Check In: {place.checkIn}</p>
+            <p>Check Out: {place.checkOut}</p>
+            <p>Max Number of Guests: {place.maxGuests}</p>
+          </div>
+
+          <BookingPlace place={place} />
+
           {/* show all photos */}
           <button className="btn btn-secondary">
             <FaBarcode />{" "}
