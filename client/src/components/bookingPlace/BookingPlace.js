@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { differenceInCalendarDays } from "date-fns";
+import axios from "axios";
+import { UserContext } from "../../context/UserContext";
 
 const BookingPlace = ({ place }) => {
   const [checkIn, setCheckIn] = useState("");
@@ -7,6 +9,14 @@ const BookingPlace = ({ place }) => {
   const [numberOfGuests, setNumberOfGuests] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+    }
+  }, [user]);
 
   let numberOfNights = 0;
 
@@ -16,6 +26,24 @@ const BookingPlace = ({ place }) => {
       new Date(checkIn)
     );
   }
+
+  // bookThisPlace
+  const bookThisPlace = async () => {
+    try {
+      const res = await axios.post(`/booking`, {
+        checkIn,
+        checkOut,
+        numberOfGuests,
+        name,
+        phone,
+        place: place._id,
+        price: numberOfNights * place.price,
+      });
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -78,8 +106,8 @@ const BookingPlace = ({ place }) => {
         <br />
         <br />
 
-        <button className="btn btn-primary">
-          Book this place{" "}
+        <button className="btn btn-primary" onClick={bookThisPlace}>
+          Book this place
           {numberOfNights > 0 && <span> $ {numberOfNights * place.price}</span>}
         </button>
 

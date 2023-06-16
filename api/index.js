@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 8080;
 // all route
 const userRoute = require("./routes/userRoute");
 const placeRoute = require("./routes/placeRoute");
+const bookRoute = require("./routes/bookingRoute");
 
 // connect to db
 const connectedDB = require("./db/connect");
@@ -28,6 +29,7 @@ app.use("/uploads", express.static(__dirname + "/uploads")); // for showing Brow
 
 app.use("/api/users", userRoute);
 app.use("/api/users", placeRoute);
+app.use("/api/users", bookRoute);
 
 // add photo by link
 app.post("/api/users/upload-by-link", async (req, res) => {
