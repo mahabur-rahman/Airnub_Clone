@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 const BookingPlace = ({ place }) => {
   const [checkIn, setCheckIn] = useState("");
@@ -9,6 +10,7 @@ const BookingPlace = ({ place }) => {
   const [numberOfGuests, setNumberOfGuests] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [redirect, setRedirect] = useState("");
 
   const { user } = useContext(UserContext);
 
@@ -39,11 +41,18 @@ const BookingPlace = ({ place }) => {
         place: place._id,
         price: numberOfNights * place.price,
       });
-      console.log(res.data);
+
+      const bookingId = res.data._id;
+
+      setRedirect(`/account/bookings/${bookingId}`);
     } catch (err) {
       console.log(err);
     }
   };
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
 
   return (
     <>
