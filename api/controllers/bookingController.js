@@ -41,7 +41,13 @@ const createBooking = async (req, res) => {
 };
 
 // get all booking login user
-const getAllBooking = async (req, res) => {};
+const getAllBooking = async (req, res) => {
+  const userData = await getUserDataFromReq(req);
+
+  return res
+    .status(200)
+    .json(await BookingModel.find({ user: userData.id }).populate("place"));
+};
 
 module.exports = {
   createBooking,
